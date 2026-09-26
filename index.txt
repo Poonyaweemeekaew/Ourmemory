@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUR MEMO ยังจำกันได้ไหม?</title>
+    <!-- Google Fonts: Cinzel, Charm, Mitr & Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@700&family=Cinzel:wght@500;600;700&family=Mitr:wght@400;500&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Background Gradient inspired by the reference image */
+            --bg-gradient: linear-gradient(135deg, #a491ca 0%, #c483a9 50%, #db8b98 100%);
+            
+            /* Card Theme Colors */
+            --card-bg-gradient: linear-gradient(180deg, #b39bd2 0%, #c88bb2 60%, #da8e9b 100%);
+            --c-gold: #f3e5ab;
+            --c-gold-bright: #fff3c4;
+            --c-gold-border: rgba(243, 229, 171, 0.6);
+            --c-purple-dark: #3a2257;
+            --c-purple-deep: #25123e;
+            
+            /* UI Containers */
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --panel-border: rgba(255, 255, 255, 0.6);
+            
+            --radius-lg: 24px;
+            --radius-sm: 14px;
+            --shadow-soft: 0 15px 35px rgba(58, 34, 87, 0.18);
+            --shadow-card: 0 12px 30px rgba(58, 34, 87, 0.25);
+            --gold-glow: 0 0 15px rgba(243, 229, 171, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--c-purple-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 36px;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-logo-container {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 12px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 6px 12px rgba(58, 34, 87, 0.2));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 12px rgba(58, 34, 87, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        header .subtitle {
+            font-family: 'Charm', cursive;
+            font-size: 1.6rem;
+            color: #f3e5ab;
+            text-shadow: 0 2px 8px rgba(58, 34, 87, 0.2);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Panel Glassmorphism */
+        .panel-ground {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--panel-border);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--c-purple-deep);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-header p {
+            font-size: 0.95rem;
+            color: #6a4a8b;
+            margin-top: 4px;
+        }
+
+        /* Visual Rules Grid */
+        .rules-visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .rule-card-item {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .rule-card-item .icon-wrap {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--card-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(58, 34, 87, 0.15);
+        }
+
+        .rule-card-item h4 {
+            font-family: 'Mitr', sans-serif;
+            font-size: 1rem;
+            color: var(--c-purple-deep);
+        }
+
+        .rule-card-item p {
+            font-size: 0.88rem;
+            color: #553c70;
+            line-height: 1.5;
+        }
+
+        /* Steps Visual Flow */
+        .steps-wrapper {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            border: 1px dashed rgba(107, 72, 138, 0.3);
+        }
+
+        .steps-wrapper h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--c-purple-deep);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .step-box {
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .step-number {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #b37aa0;
+            margin-bottom: 4px;
+        }
+
+        .step-text {
+            font-size: 0.88rem;
+            color: var(--c-purple-dark);
+            line-height: 1.4;
+        }
+
+        /* Action Button */
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 24px;
+        }
+
+        .btn {
+            border: 1px solid var(--c-gold);
+            padding: 16px 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: 'Mitr', sans-serif;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--c-purple-deep);
+            color: var(--c-gold);
+            box-shadow: 0 8px 20px rgba(37, 18, 62, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(37, 18, 62, 0.4), var(--gold-glow);
+            background: #2e174d;
+            color: #ffffff;
+        }
+
+        .btn-heal {
+            background: linear-gradient(135deg, #d88fa5 0%, #b37ba4 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-heal:hover {
+            background: linear-gradient(135deg, #e29bb1 0%, #be87b0 100%);
+            box-shadow: 0 8px 20px rgba(190, 135, 176, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+            background: #9c8ea9 !important;
+            color: #ece6f2 !important;
+            border-color: transparent !important;
+        }
+
+        /* Tarot Cards Display */
+        .draw-zone-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            height: 420px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border-radius: var(--radius-lg);
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--c-gold-border);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .card-back {
+            background: var(--card-bg-gradient);
+        }
+
+        .mystic-border-frame {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--c-gold);
+            border-radius: 16px;
+            padding: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mystic-border-frame::before, .mystic-border-frame::after {
+            content: "✦";
+            position: absolute;
+            color: var(--c-gold);
+            font-size: 10px;
+        }
+        .mystic-border-frame::before { top: 4px; left: 6px; }
+        .mystic-border-frame::after { top: 4px; right: 6px; }
+
+        .card-back-content {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-back-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--c-gold);
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .card-front {
+            transform: rotateY(180deg);
+            background: #ffffff;
+            border-color: var(--c-gold);
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-family: 'Mitr', sans-serif;
+            background: #f4ecf8;
+            color: var(--c-purple-deep);
+            border: 1px solid #e2d2ed;
+        }
+
+        .card-img-wrap {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: var(--card-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 4px 12px rgba(58, 34, 87, 0.15);
+        }
+
+        .card-title {
+            font-family: 'Mitr', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--c-purple-deep);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.92rem;
+            color: #5d4872;
+            line-height: 1.5;
+        }
+
+        /* Hand Cards Section */
+        .hand-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .mini-card {
+            background: #ffffff;
+            border: 1px solid #e5d8ef;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .mini-card:hover {
+            border-color: #b37ba4;
+            background: #fcf8ff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(58, 34, 87, 0.08);
+        }
+
+        .mini-card.selected {
+            border: 2px solid #b37ba4;
+            background: #f8effb;
+            box-shadow: 0 0 12px rgba(179, 123, 164, 0.3);
+        }
+
+        .mini-card-title {
+            font-size: 0.92rem;
+            font-weight: 500;
+            font-family: 'Mitr', sans-serif;
+            color: var(--c-purple-deep);
+        }
+
+        .mini-card-desc {
+            font-size: 0.82rem;
+            color: #6a577d;
+            line-height: 1.4;
+        }
+
+        .mini-card-action {
+            font-size: 0.78rem;
+            color: #b37ba4;
+            font-weight: 600;
+            align-self: flex-end;
+        }
+
+        .selected-situation-display {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .big-situation-card {
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 2px solid var(--c-gold);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-card);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heal-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .heal-card-container {
+            width: 100%;
+            max-width: 340px;
+            height: 400px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-bottom: 20px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            opacity: 0.9;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 24px 12px; }
+            header h1 { font-size: 1.8rem; }
+            header .subtitle { font-size: 1.3rem; }
+            .draw-zone-main { grid-template-columns: 1fr; }
+            .card-container, .heal-card-container { height: 380px; }
+            .btn { width: 100%; justify-content: center; padding: 14px 20px; }
+            .panel-ground { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="game-logo-container">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="#f3e5ab" stroke-width="1.5" stroke-dasharray="4 2"/>
+                <path d="M50 15 L53 35 L70 30 L58 43 L75 50 L58 57 L70 70 L53 65 L50 85 L47 65 L30 70 L42 57 L25 50 L42 43 L30 30 L47 35 Z" fill="#f3e5ab" opacity="0.9"/>
+                <circle cx="50" cy="50" r="12" fill="#ffffff"/>
+            </svg>
+        </div>
+
+        <h1>OUR MEMO</h1>
+        <div class="subtitle">ยังจำกันได้ไหม?</div>
+        <p>เปิดไพ่ทาโรต์ท่องเวลา ทบทวนความทรงจำในอดีต ร่วมแบ่งปันเรื่องราว และรับพลังใจ</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Rules & Visual Steps -->
+        <div class="panel-ground">
+            <div class="section-header">
+                <h2>✦ HOW TO PLAY ✦</h2>
+                <p>กติกาการเล่นสำหรับ 2-5 คน</p>
+            </div>
+
+            <div class="rules-visual-grid">
+                <div class="rule-card-item">
+                    <div class="icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h4>1. Tarot Card (9 ใบ)</h4>
+                    <p>ไพ่แทนเรื่องราวและเหตุการณ์สำคัญในชีวิต</p>
+                </div>
+
+                <div class="rule-card-item">
+                    <div class="icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </div>
+                    <h4>2. Retrieval Card (5 ใบ)</h4>
+                    <p>ตัวกระตุ้นความทรงจำ (สัมผัส กลิ่น เสียง สถานที่ บุคคล)</p>
+                </div>
+
+                <div class="rule-card-item">
+                    <div class="icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12L2.5 7.5"/><path d="M12 12v10"/></svg>
+                    </div>
+                    <h4>3. Situation Card (ถือคนละ 5 ใบ)</h4>
+                    <p>รูปแบบความจำที่มีผลต่อความรู้สึกของคุณ</p>
+                </div>
+            </div>
+
+            <div class="steps-wrapper">
+                <h3>ขั้นตอนการดำเนินเกม</h3>
+                <div class="steps-grid">
+                    <div class="step-box">
+                        <div class="step-number">STEP 01</div>
+                        <div class="step-text">กดสุ่มไพ่ Tarot และ Retrieval พร้อมกัน</div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">STEP 02</div>
+                        <div class="step-text">นึกถึงความทรงจำที่เชื่อมโยงไพ่ทั้งสองใบ</div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">STEP 03</div>
+                        <div class="step-text">เลือก Situation card ในมือที่ตรงกับความรู้สึกที่สุด</div>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">STEP 04</div>
+                        <div class="step-text">จดบันทึกรายละเอียดเหตุการณ์</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drawing Zone -->
+        <div>
+            <div class="controls">
+                <button class="btn" onclick="drawMainCards()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    ขั้นตอนที่ 1 : สุ่มจั่วไพ่ประจำรอบ
+                </button>
+            </div>
+
+            <div class="draw-zone-main">
+                <!-- Tarot Card -->
+                <div class="card-container" onclick="flipCard('tarot-card')">
+                    <div class="card" id="tarot-card">
+                        <div class="card-face card-back">
+                            <div class="mystic-border-frame">
+                                <div class="card-back-content">
+                                    <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+                                        <path d="M50 20 C66.5 20 80 33.5 80 50 C80 66.5 66.5 80 50 80 C40 80 30 75 25 65 C35 65 45 55 45 40 C45 30 40 23 35 20 C40 20 45 20 50 20 Z" fill="#f3e5ab"/>
+                                        <circle cx="50" cy="50" r="12" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                                        <path d="M50 5 L50 15 M50 85 L50 95 M5 50 L15 50 M85 50 L95 50" stroke="#f3e5ab" stroke-width="2"/>
+                                    </svg>
+                                    <div class="card-back-title">TAROT</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-face card-front">
+                            <span class="card-tag">ชุดที่ 1 : Tarot Card</span>
+                            <div class="card-img-wrap" id="tarot-img"></div>
+                            <div>
+                                <div class="card-title" id="tarot-title">รอสุ่มการ์ด</div>
+                                <div class="card-desc" id="tarot-desc">เรื่องราวในชีวิตที่คุณจะได้ทบทวน</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retrieval Card -->
+                <div class="card-container" onclick="flipCard('retrieval-card')">
+                    <div class="card" id="retrieval-card">
+                        <div class="card-face card-back">
+                            <div class="mystic-border-frame">
+                                <div class="card-back-content">
+                                    <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+                                        <path d="M50 15 L70 40 L50 85 L30 40 Z" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                                        <path d="M30 40 L70 40 M50 15 L50 85" stroke="#f3e5ab" stroke-width="1.5"/>
+                                        <path d="M40 28 L60 28 M42 60 L58 60" stroke="#f3e5ab" stroke-width="1"/>
+                                        <circle cx="50" cy="8" r="2" fill="#f3e5ab"/>
+                                        <circle cx="50" cy="92" r="2" fill="#f3e5ab"/>
+                                    </svg>
+                                    <div class="card-back-title">RETRIEVAL</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-face card-front">
+                            <span class="card-tag">ชุดที่ 2 : Retrieval Card</span>
+                            <div class="card-img-wrap" id="retrieval-img"></div>
+                            <div>
+                                <div class="card-title" id="retrieval-title">รอสุ่มการ์ด</div>
+                                <div class="card-desc" id="retrieval-desc">ตัวเชื่อมที่ขุดความทรงจำออกมา</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hand Cards Section -->
+        <div class="panel-ground">
+            <div class="section-header" style="margin-bottom: 16px;">
+                <h2>✦ YOUR HAND CARDS ✦</h2>
+                <p>เลือก Situation Card ในมือที่ตรงกับความรู้สึกของคุณ</p>
+            </div>
+            
+            <div class="hand-cards" id="hand-cards-container"></div>
+
+            <div class="selected-situation-display" id="selected-situation-display" style="display: none;">
+                <div class="big-situation-card">
+                    <span class="card-tag">Situation Card ที่คุณเลือก</span>
+                    <div class="card-img-wrap" id="big-situation-img"></div>
+                    <div>
+                        <div class="card-title" id="big-situation-title"></div>
+                        <div class="card-desc" id="big-situation-desc"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heal Card Section -->
+        <div class="panel-ground heal-section">
+            <div class="section-header" style="margin-bottom: 0;">
+                <h2>✦ HEALING CARD ✦</h2>
+                <p>เมื่อเล่าเรื่องราวเสร็จแล้ว เปิดไพ่เพื่อรับพลังใจประจำรอบ</p>
+            </div>
+            
+            <button class="btn btn-heal" id="btn-heal-draw" onclick="drawHealCard()" disabled>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                เล่าเรื่องจบแล้ว กดเปิดไพ่ฮีลใจ
+            </button>
+
+            <div class="heal-card-container" onclick="flipCard('heal-card')">
+                <div class="card" id="heal-card">
+                    <div class="card-face card-back">
+                        <div class="mystic-border-frame">
+                            <div class="card-back-content">
+                                <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+                                    <path d="M50 20 C35 20 25 32 25 45 C25 60 50 80 50 80 C50 80 75 60 75 45 C75 32 65 20 50 20 Z" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                                    <circle cx="50" cy="42" r="8" fill="#f3e5ab"/>
+                                    <path d="M50 28 L50 34 M50 50 L50 56 M42 42 L36 42 M58 42 L64 42" stroke="#f3e5ab" stroke-width="1.5"/>
+                                </svg>
+                                <div class="card-back-title">HEALING</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-face card-front">
+                        <span class="card-tag">ไพ่ฮีลใจ</span>
+                        <div class="card-img-wrap" id="heal-img"></div>
+                        <div>
+                            <div class="card-title" id="heal-title">รอเปิดหลังเล่าจบ</div>
+                            <div class="card-desc" id="heal-desc">พลังบวกและความรู้สึกดีๆ สำหรับคุณ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>OUR MEMO — ยังจำกันได้ไหม?</p>
+    </footer>
+
+    <script>
+        // Tarot Cards (Remaining 9 Cards - Removed 'Death')
+        const tarotCards = [
+            { id: 1, title: "1) The Fool", desc: "เหตุการณ์ที่ทำให้รู้สึกเป็นอิสระ", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M12 7l3 5h-6z"/></svg>` },
+            { id: 2, title: "2) The Magician", desc: "เหตุการณ์ที่ประสบความสำเร็จ", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 2l2.5 6.5L21 11l-5 4.5 1.5 7-5.5-3.5L6.5 22.5 8 15.5 3 11l6.5-2.5z"/></svg>` },
+            { id: 3, title: "3) The Empress", desc: "เหตุการณ์ที่ช่วยเหลือผู้อื่นแล้วรู้สึกดี", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path d="M12 7v10M8 11h8"/></svg>` },
+            { id: 4, title: "4) The Emperor", desc: "เหตุการณ์อะไรที่ทำให้เข้มแข็งขึ้น", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>` },
+            { id: 5, title: "5) The Lovers", desc: "เหตุการณ์อะไรที่ทำให้คุณรักตัวเองมากขึ้น", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>` },
+            { id: 6, title: "6) The Strength", desc: "เหตุการณ์อะไรที่เตือนสติเรา", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>` },
+            { id: 7, title: "7) The Hermit", desc: "เหตุการณ์อะไรที่ทำให้เรารู้สึกมีคุณค่า", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>` },
+            { id: 8, title: "8) Wheel of Fortune", desc: "เหตุการณ์ที่ทำให้คุณรู้สึกเป็นคนโชคดี", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M115 3v18"/></svg>` },
+            { id: 9, title: "9) Temperance", desc: "เหตุการณ์อะไรที่ต้องปรับตัว และปรับอย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>` }
+        ];
+
+        const retrievalCards = [
+            { title: "กลิ่น (Smell)", desc: "เหตุการณ์นี้เกี่ยวข้องกับ 'กลิ่น' อย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M6 3v6M12 3v6M18 3v6"/><path d="M4 14a8 8 0 0 0 16 0H4z"/></svg>` },
+            { title: "สถานที่ (Place)", desc: "เหตุการณ์นี้เกี่ยวข้องกับ 'สถานที่' อย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>` },
+            { title: "เสียง (Sound)", desc: "เหตุการณ์นี้เกี่ยวข้องกับ 'เสียง' อย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>` },
+            { title: "สิ่งของ (Object)", desc: "เหตุการณ์นี้เกี่ยวข้องกับ 'สิ่งของ' อย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>` },
+            { title: "บุคคล (Person)", desc: "เหตุการณ์นี้เกี่ยวข้องกับ 'บุคคล' อย่างไร", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>` }
+        ];
+
+        const healCards = [
+            "เธอทำดีแล้วนะ",
+            "ให้เลยที่หนึ่งในใจ",
+            "ใจดีกับคนอื่นแล้ว อย่าลืมใจดีกับตัวเองนะ",
+            "เหนื่อยก็พักแล้วไปกันต่อนะ",
+            "สู้ๆ นะคนเก่ง เธอบรรลุผลได้แน่นอน",
+            "ปล่อยวางได้ ใจย่อมสบาย 🧘🏻🪷",
+            "ตนเป็นที่พึ่งแห่งตน และคุณทำมันได้ดีแล้ว",
+            "จงใช้ปัจจุบันให้ดีที่สุด เพราะนี่คือเวลาที่คุณมี",
+            "คนนับล้านก็สู้ความตั้งใจของคุณไม่ได้",
+            "จงเปล่งประกายดั่งดาวที่สุขสกาวบนท้องฟ้า"
+        ];
+
+        const healSvg = `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`;
+
+        const situationCards = [
+            { id: 1, title: "ทักษะ (Skill memory)", desc: "ความทรงจำเกี่ยวกับทักษะที่ทำจนชิน เช่น เล่นดนตรี ปั่นจักรยาน", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>` },
+            { id: 2, title: "รับรู้ก่อนหน้า (Priming)", desc: "รับรู้เหตุการณ์ก่อนหน้า ทำให้ตอบสนองโดยไม่รู้ตัว (เช่น เคยได้ยินเพลงแล้วร้องตามได้)", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>` },
+            { id: 3, title: "วางเงื่อนไข (Conditioning)", desc: "สิ่งเร้าถูกจับคู่กับเหตุการณ์ซ้ำๆ จนเกิดการตอบสนองอัตโนมัติ", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>` },
+            { id: 4, title: "ชินต่อเหตุการณ์ (Habituation)", desc: "ความคุ้นชินต่อเหตุการณ์จนรู้สึกปกติธรรมดา", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>` },
+            { id: 5, title: "ไวต่อเหตุการณ์ (Sensitization)", desc: "เหตุการณ์ที่เกิดซ้ำๆ จนกระตุ้นความรู้สึกได้อย่างรวดเร็ว", svg: `<svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#f3e5ab" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>` }
+        ];
+
+        let selectedSituationId = null;
+
+        function renderHandCards() {
+            const container = document.getElementById('hand-cards-container');
+            container.innerHTML = '';
+            situationCards.forEach((card) => {
+                const isSelected = card.id === selectedSituationId;
+                const el = document.createElement('div');
+                el.className = `mini-card ${isSelected ? 'selected' : ''}`;
+                el.onclick = () => selectSituation(card);
+                el.innerHTML = `
+                    <div>
+                        <div class="mini-card-title">${card.title}</div>
+                        <div class="mini-card-desc">${card.desc}</div>
+                    </div>
+                    <div class="mini-card-action">${isSelected ? '✓ เลือกแล้ว' : 'เลือกไพ่นี้ ✦'}</div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function selectSituation(card) {
+            selectedSituationId = card.id;
+            renderHandCards();
+
+            const displayEl = document.getElementById('selected-situation-display');
+            document.getElementById('big-situation-title').innerText = card.title;
+            document.getElementById('big-situation-desc').innerText = card.desc;
+            document.getElementById('big-situation-img').innerHTML = card.svg;
+
+            displayEl.style.display = 'flex';
+            displayEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function getRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function flipCard(cardId) {
+            document.getElementById(cardId).classList.toggle('flipped');
+        }
+
+        function drawMainCards() {
+            document.getElementById('tarot-card').classList.remove('flipped');
+            document.getElementById('retrieval-card').classList.remove('flipped');
+            document.getElementById('heal-card').classList.remove('flipped');
+
+            setTimeout(() => {
+                const randomTarot = getRandom(tarotCards);
+                const randomRetrieval = getRandom(retrievalCards);
+
+                document.getElementById('tarot-title').innerText = randomTarot.title;
+                document.getElementById('tarot-desc').innerText = randomTarot.desc;
+                document.getElementById('tarot-img').innerHTML = randomTarot.svg;
+
+                document.getElementById('retrieval-title').innerText = randomRetrieval.title;
+                document.getElementById('retrieval-desc').innerText = randomRetrieval.desc;
+                document.getElementById('retrieval-img').innerHTML = randomRetrieval.svg;
+
+                document.getElementById('heal-title').innerText = "รอเปิดหลังเล่าจบ";
+                document.getElementById('heal-desc').innerText = "เล่าเรื่องเสร็จแล้ว กดปุ่มเปิดพลังใจ";
+                document.getElementById('heal-img').innerHTML = "";
+                document.getElementById('btn-heal-draw').disabled = false;
+
+                setTimeout(() => {
+                    document.getElementById('tarot-card').classList.add('flipped');
+                    document.getElementById('retrieval-card').classList.add('flipped');
+                }, 200);
+
+            }, 400);
+        }
+
+        function drawHealCard() {
+            const healCardEl = document.getElementById('heal-card');
+            healCardEl.classList.remove('flipped');
+
+            setTimeout(() => {
+                const randomHeal = getRandom(healCards);
+
+                document.getElementById('heal-title').innerText = randomHeal;
+                document.getElementById('heal-desc').innerText = "ข้อความฮีลใจสำหรับรอบการเล่นนี้";
+                document.getElementById('heal-img').innerHTML = healSvg;
+
+                setTimeout(() => {
+                    healCardEl.classList.add('flipped');
+                }, 200);
+
+            }, 300);
+        }
+
+        window.onload = () => {
+            renderHandCards();
+        };
+    </script>
+</body>
+</html>
